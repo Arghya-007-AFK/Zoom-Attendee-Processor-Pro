@@ -302,7 +302,7 @@ function process(rows){
     var leaves=rs.map(function(r){return r.leave;}).filter(Boolean);
     if(!joins.length||!leaves.length)return;
     var fj=Math.min.apply(null,joins),ll=Math.max.apply(null,leaves);
-    var span=Math.max(0,Math.round((ll-fj)/60000));
+    var span=Math.max(1,Math.round((ll-fj)/60000)); /* min 1 min: no Yes rows with 0 */
     var ns=rs.reduce(function(a,r){return a+r.time;},0);
     if(ns-span>1)stats.inflationFixed++;
     if(rs.length>1)stats.merged+=rs.length-1;
